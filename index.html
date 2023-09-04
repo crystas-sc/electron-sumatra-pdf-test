@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        First Web Page
+    </title>
+    <style>
+        @media only print {
+            @page {
+                size: auto;
+                /* auto is the initial value */
+                margin: 0;
+                /* this affects the margin in the printer settings */
+                height: 70mm !important;
+                width: 70mm !important;
+            }
+
+            html,
+            body {
+                
+                height: 70mm !important;
+                width: 70mm !important;
+            }
+
+           
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>My First Heading</h1>
+    <p>My first paragraph.</p>
+    <h1>Hello World!</h1>
+    <h2>Hello World!</h2>
+    <h3>Hello World!</h3>
+    <h4>Hello World!</h4>
+    <h5>Hello World!</h5>
+    <h6>Hello World!</h6>
+    <app-action>
+        <button onclick="showPrinters()">Print</button>
+
+    </app-action>
+    <script src="./renderer.js"></script>
+</body>
+
+</html>

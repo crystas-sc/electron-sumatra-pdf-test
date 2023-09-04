@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style type="text/css">
+        <!--
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            app-action {
+                display: none;
+            }
+
+            body,
+            page[size="A4"] {
+                margin: 0;
+                box-shadow: 0;
+                font-size: 34em;
+            }
+        }
+        #my_canvas{
+            overflow: auto;
+        }
+        -->
+    </style>
+</head>
+
+<body>
+    <app-action>
+        <button onclick="showPrinters()">Print</button>
+
+    </app-action>
+    Test ksldjfksjjs sdlk jfksjd fjsldk lskdj klsdj lksjd lksjd ljslkd jlskdjlkjsdljsld 
+    <div id="my_canvas"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.min.js"
+        integrity="sha512-hoZmP5l0sJQzHzkXQS3ZCj/H7bOn8JKmbHd/s2trPUoMcvPaBfLSE9/92cpwYzcXBaEtVT/aCQ9P97rkTSWqcw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function renderPDF(url, canvasContainer) {
+
+            function renderPage(page) {
+
+                let viewport = page.getViewport({ scale: .5 })
+                const DPI = 10;
+                const PRINT_OUTPUT_SCALE = DPI / 72;
+                const scale = canvasContainer.clientWidth / viewport.width;
+                const canvas = document.createElement('canvas')
+
+                const ctx = canvas.getContext('2d')
+                viewport = page.getViewport({ scale })
+
+                /* canvas.width = Math.floor(viewport.width * PRINT_OUTPUT_SCALE);
+                canvas.height = Math.floor(viewport.height * PRINT_OUTPUT_SCALE); */
+                canvas.width = 2480;
+                canvas.height = 3508;
+                console.log("canvas",canvas.width,canvas.height)
+
+                /* canvas.style.width = '100%'; */
+
+                canvas.style.transform = 'scale(1,1)';
+                canvas.style.transformOrigin = '0% 0%';
+
+                const canvasWrapper = document.createElement('div');
+
+                /* canvasWrapper.style.width = '100%';
+                canvasWrapper.style.height = '100%'; */
+                canvasWrapper.style.width = "2480px";
+                canvasWrapper.style.height = "3508px";
+
+                canvasWrapper.appendChild(canvas);
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport,
+                }
+
+                canvasContainer.appendChild(canvasWrapper)
+
+                page.render(renderContext)
+            }
+
+            function renderPages(pdfDoc) {
+                /* for (let num = 1; num <= pdfDoc.numPages; num += 1) */
+                for (let num = 1; num <= 1; num += 1)
+                    pdfDoc.getPage(num).then(renderPage)
+            }
+
+            pdfjsLib.disableWorker = true
+            pdfjsLib.getDocument(url).promise.then(renderPages)
+        }
+
+        /* renderPDF('https://researchtorevenue.files.wordpress.com/2015/04/1r41ai10801601_fong.pdf', document.getElementById('my_canvas')) //div element */
+
+    </script>
+    <script src="./renderer.js"></script>
+
+</body>
+
+</html>
